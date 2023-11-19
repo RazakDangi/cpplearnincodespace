@@ -34,8 +34,8 @@ class Student {
         this->teammates = move (other.teammates);
         
         // for primary variables (int float double ...) just copy and 
-        this->id = move(other.id);
-        //other.id = 0;
+        this->id =other.id;
+        other.id = 0;
     }
     
     void addTeammate (Student* st)
@@ -46,7 +46,12 @@ class Student {
     void Display ()
     {
         cout << this->name << endl << this->id << endl;
+        for(auto& st : teammates)
+        {
+            cout << st->name << endl << st->id << endl;
+        }
     }
+    
     Student& operator=(const Student& other) {
         cout<<"copy assignment is cald"<<endl;
            if (this != &other) {
@@ -73,16 +78,20 @@ int main ()
     Student* st = nullptr;
     st=  new Student ("Mohamed", 1);
 
-    Student st1 = move (*st);
-    
-    
-    st->Display();
-    st1.Display();
+   
     
      Student* alicePtr = new Student("Alice", 1001);
     Student* bobPtr = new Student("Bob", 1002);
 
-    alicePtr->Display();
+    st->addTeammate (alicePtr);
+    st->addTeammate (bobPtr);
+     Student st1 = move (*st);
+    
+    
+    st->Display();
+    st1.Display();
+
+  /*  alicePtr->Display();
     bobPtr->Display();
 
    *alicePtr = move(*bobPtr);
@@ -92,6 +101,6 @@ int main ()
     bobPtr->Display();   
     
     delete bobPtr; 
-    
+    */
     return 0;
 }
