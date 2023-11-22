@@ -2,49 +2,50 @@
 
 using namespace std;
 
-
-struct Node{
-  
-  int val;
-  Node* next;
+template <typename T>
+class Node{
+  public:
+  T val;
+  Node<T>* next;
 
 
 };
-
-Node* CreateNode(int val){
-    Node* node = new Node;
+template <typename T>
+Node<T>* CreateNode(T val){
+    Node<T>* node = new Node<T>;
     node->val = val;
     node->next = nullptr;
     return node;
 }
 
-void AppendNode (Node* head , int newVal)
+template <typename T>
+void AppendNode (Node<T>*  &head , T newVal)
 {
-    
     if(head == nullptr){
         head = CreateNode(newVal);
     }else{
-        Node * current = head;
+        Node<T> * current = head;
         while(current->next !=nullptr){
             current = current-> next;
         }    
         current->next = CreateNode(newVal);
     }
 }
-
-void showAll(Node* head){
-    Node *current = head;
-    while (current != nullptr)
+template <typename T>
+void showAll(Node<T>* head){
+    Node<T> *current = head;
+    while (current->next != head)
     {
         cout<< current -> val <<endl;
         current = current ->next;
     }
-    
+    cout<< current -> val <<endl;
 }
+
 int main ()
 {
-    Node* head = nullptr;
-    head = CreateNode(1);
+   /*Node<int>* head = nullptr;
+    //head = CreateNode(1);
 
     int num= 0;
     cout<<" enter 5 values of int"<< endl;
@@ -55,7 +56,42 @@ int main ()
     AppendNode(head, val);
     num++;
     }
+    Node<int>* current = head;
+    while(current->next != nullptr){
+        //cout<< current->val<<endl;
+        current = current->next;
+    }
+
+    // 1 2 3 4 5
+    
+    current->next = head;
+
     showAll(head);
+*/
+
+    Node<string>* strhead = nullptr;
+    //head = CreateNode(1);
+
+    int num= 0;
+    cout<<" enter 5 values of int"<< endl;
+    
+    while(num < 5){
+    string val;
+    cin>>val;
+    AppendNode(strhead, val);
+    num++;
+    }
+    Node<string>* currentstr = strhead;
+    while(currentstr->next != nullptr){
+        //cout<< current->val<<endl;
+        currentstr = currentstr->next;
+    }
+
+    // 1 2 3 4 5
+    
+    currentstr->next = strhead;
+
+    showAll(strhead);
 
     return 0;
 }
